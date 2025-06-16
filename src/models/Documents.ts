@@ -1,14 +1,14 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema, Document, Types } from "mongoose";
 
 export interface ISharedWith {
-  user: { type: mongoose.Schema.Types.ObjectId; ref: "User" };
-  role: { type: String; enum: ["viewer", "editor"]; default: "viewer" };
+  user: Types.ObjectId;
+  role: "viewer" | "editor";
 }
 
 export interface IDocument extends Document {
   title: string;
   content: string;
-  owner: mongoose.Types.ObjectId;
+  owner: Types.ObjectId;
   sharedWith: ISharedWith[];
   publicAccess: boolean;
   publicRole: "viewer" | "editor";
