@@ -14,7 +14,7 @@ export const register = async (req: Request, res: Response): Promise<void> => {
     avatar: AVATER_PLACEHOLDER,
   });
 
-  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+  const token = jwt.sign({ id: user._id }, "Secrate"!, {
     expiresIn: "7d",
   });
   res.status(201).json({ token, data: user, status: 201 });
@@ -40,7 +40,7 @@ export const login = async (req: Request, res: Response): Promise<void> => {
       return;
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET!, {
+    const token = jwt.sign({ id: user._id }, "Secrate"!, {
       expiresIn: "7d",
     });
 
