@@ -22,7 +22,11 @@ const server = http.createServer(app);
 //   },
 // });
 
-app.use(cors({ origin: process.env.CLIENT_URL || "http://localhost:3000" }));
+app.use(
+  cors({
+    origin: process.env.CLIENT_URL || "https://docs-client-puce.vercel.app",
+  })
+);
 app.use(express.json());
 
 app.use("/api/auth", authRoutes);
