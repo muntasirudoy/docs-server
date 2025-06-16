@@ -24,7 +24,7 @@ const server = http.createServer(app);
 
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "https://docs-client-puce.vercel.app",
+    origin: "https://docs-client-puce.vercel.app",
   })
 );
 app.use(express.json());
