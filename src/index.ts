@@ -44,10 +44,13 @@ server.on("upgrade", (request, socket, head) => {
 });
 
 const MONGO_URI = "mongodb://localhost:27017/collab-docs";
+const MONGO_URI_ATLAS =
+  "mongodb+srv://docs:udoy123456@cluster0.6q4r2qk.mongodb.net/collab-docs";
+
 const PORT = process.env.PORT || 5000;
 
 mongoose
-  .connect(MONGO_URI)
+  .connect(MONGO_URI_ATLAS)
   .then(() => {
     console.log("MongoDB connected");
     server.listen(PORT, () => {
