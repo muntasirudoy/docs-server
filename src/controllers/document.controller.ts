@@ -6,7 +6,7 @@ import User from "../models/User";
 export const createDoc = async (req: Request, res: Response) => {
   try {
     if (!req.body || !req.body.owner) {
-      return res.status(401).json({ message: "Unauthorized" });
+      res.status(401).json({ message: "Unauthorized" });
     }
 
     const { title, content, sharedWith = [], role, owner } = req.body;
@@ -69,7 +69,7 @@ export const getDocumentByDocumentId = async (req: Request, res: Response) => {
     const { docId } = req.params;
 
     if (!mongoose.Types.ObjectId.isValid(docId)) {
-      return res.status(400).json({ message: "Invalid document ID" });
+      res.status(400).json({ message: "Invalid document ID" });
     }
 
     const document = await Documents.findById(docId).populate({
@@ -78,7 +78,7 @@ export const getDocumentByDocumentId = async (req: Request, res: Response) => {
     });
 
     if (!document) {
-      return res.status(404).json({ message: "Document not found" });
+      res.status(404).json({ message: "Document not found" });
     }
 
     res.status(200).json(document);
@@ -160,7 +160,7 @@ export const togglePublicAccess = async (req: Request, res: Response) => {
       { new: true }
     );
 
-    if (!doc) return res.status(404).json({ message: "Document not found" });
+    if (!doc) res.status(404).json({ message: "Document not found" });
     res.status(200).json(doc);
   } catch (error) {
     res.status(500).json({ message: "Something went wrong." });
@@ -176,22 +176,22 @@ export const getPublicDocument = async (req: Request, res: Response) => {
       .populate("sharedWith.user", "fullName email avatar");
 
     if (!document) {
-      return res.status(404).json({ message: "Document not found" });
+      res.status(404).json({ message: "Document not found" });
     }
 
-    if (!document.publicAccess) {
-      return res
+    if (!document?.publicAccess) {
+      res
         .status(403)
         .json({ message: "This document is not publicly accessible" });
     }
 
     res.status(200).json({
       data: {
-        _id: document._id,
-        title: document.title,
-        content: document.content,
-        owner: document.owner,
-        publicRole: document.publicRole,
+        _id: document?._id,
+        title: document?.title,
+        content: document?.content,
+        owner: document?.owner,
+        publicRole: document?.publicRole,
       },
     });
   } catch (error) {
